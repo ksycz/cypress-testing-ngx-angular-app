@@ -1,0 +1,26 @@
+{
+  "name": "cypress-testing-ngx-angular-app",
+  "version": "1.0.0",
+  "description": "This repository contains tests for the following app https://github.com/Postavshik/ngx-cypress-test that was used during the https://www.udemy.com/course/cypress-web-automation-testing-from-zero-to-hero/ Udemy course.",
+  "main": "index.js",
+  "dependencies": {
+    "cypress-plugin-retries": "^1.5.2"
+  },
+  "devDependencies": {
+    "cypress": "^4.12.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:run": "CYPRESS_RETRIES=2 npm run cypress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksycz/cypress-testing-ngx-angular-app.git"
+  },
+  "author": "ksycz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ksycz/cypress-testing-ngx-angular-app/issues"
+  },
+  "homepage": "https://github.com/ksycz/cypress-testing-ngx-angular-app#readme"
+}
