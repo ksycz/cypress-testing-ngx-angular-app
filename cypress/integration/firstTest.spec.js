@@ -90,7 +90,7 @@ describe('Our first test suite', () => {
     })
 
      // to read the value or another property from the Inspect console, go to console and type "console.dir($0)"
-     it.only("Assert property", () => {
+     it("Assert property", () => {
         cy.visit("/")
         cy.contains("Forms").click()
         cy.contains("Datepicker").click()
@@ -101,5 +101,38 @@ describe('Our first test suite', () => {
             cy.get('nb-calendar-day-picker').contains('20').click()
             cy.wrap(input).invoke('prop', 'value').should('contain', 'Aug 20, 2020')
         })
+    })
+
+      it("Radio buttons", () => {
+        cy.visit("/")
+        cy.contains("Forms").click()
+        cy.contains("Forms Layout").click()
+
+        cy.contains("nb-card", "Using the Grid").find('[type="radio"]').then(radioBtns => {
+            cy.wrap(radioBtns)
+            .first()
+            .check({force: true})
+            .should('be.checked')
+
+            cy.wrap(radioBtns)
+            .eq(1) // index 1
+            .check({force: true})
+            cy.wrap(radioBtns)
+            .first()
+            .should('not.be.checked')
+
+            cy.wrap(radioBtns)
+            .eq(2) // index 2
+            .should('be.disabled')
+        })
+       
+    })
+
+    it.only("Checkboxes", () => {
+        cy.visit("/")
+        cy.contains("Modal & Overlays").click()
+        cy.contains("Toastr").click()
+    // "check" command will not uncheck the checked checkbox, you have to use click command for that
+        cy.get('[type="checkbox"]').check({force: true})
     })
 })
