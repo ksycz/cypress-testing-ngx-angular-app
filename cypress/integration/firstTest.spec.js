@@ -128,11 +128,45 @@ describe('Our first test suite', () => {
        
     })
 
-    it.only("Checkboxes", () => {
+    it("Checkboxes", () => {
         cy.visit("/")
         cy.contains("Modal & Overlays").click()
         cy.contains("Toastr").click()
     // "check" command will not uncheck the checked checkbox, you have to use click command for that
         cy.get('[type="checkbox"]').check({force: true})
+    })
+
+    it.only("Lists and dropdowns", () => {
+        cy.visit("/")
+        // here we cannot use the "select" method because our tag name for dropdown is "nb-select"
+
+        // simple version
+        // cy.get('nav nb-select').click()
+        // cy.get('.options-list').contains('Dark').click()
+        // cy.get('nav nb-select').should('contain', 'Dark')
+        // cy.get('nb-layout-header nav').should('have.css', 'background-color', 'rgb(34, 43, 69)')
+
+        // advanced version
+        cy.get('nav nb-select').then( dropdown => {
+            cy.wrap(dropdown).click()
+            cy.get('.options-list nb-option').each((listItem, index) => {
+                // we use trim to get rid of the trailing spaces
+                const itemText = listItem.text().trim()
+
+                const colors = {
+                    'Light': 'rgb(255, 255, 255)',
+                    'Dark': 'rgb(34, 43, 69)',
+                    'Cosmic': 'rgb(50, 50, 89)',
+                    'Corporate': 'rgb(255, 255, 255)'
+                }
+                cy.wrap(listItem).click()
+                cy.wrap(dropdown).should('contain', itemText)
+                cy.get('nb-layout-header nav').should('have.css', 'background-color', colors[itemText])
+                if(index < 3) {
+                    cy.wrap(dropdown).click()
+                }
+                
+            })
+        })
     })
 })
