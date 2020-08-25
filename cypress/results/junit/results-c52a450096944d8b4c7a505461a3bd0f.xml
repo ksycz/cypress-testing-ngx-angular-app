@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="51.7740" tests="9" failures="2" skipped="1">
+  <testsuite name="Root Suite" timestamp="2020-08-25T19:52:27" tests="0" file="cypress/integration/firstTest.spec.js" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="Our first test suite" timestamp="2020-08-25T19:52:27" tests="9" time="51.7740" failures="2">
+    <testcase name="Our first test suite First test" time="0.0390" classname="First test">
+    </testcase>
+    <testcase name="Our first test suite Finding web elements" time="0.0000" classname="Finding web elements">
+      <failure message="Timed out retrying: Expected to find content: &apos;Forms Layouts&apos; but never did." type="AssertionError"><![CDATA[AssertionError: Timed out retrying: Expected to find content: 'Forms Layouts' but never did.
+    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress/integration/firstTest.spec.js:11:8)]]></failure>
+    </testcase>
+    <testcase name="Our first test suite Then and wrap methods" time="6.2840" classname="Then and wrap methods">
+    </testcase>
+    <testcase name="Our first test suite Invoke command" time="20.2090" classname="Invoke command">
+    </testcase>
+    <testcase name="Our first test suite Assert property" time="13.8980" classname="Assert property">
+    </testcase>
+    <testcase name="Our first test suite Radio buttons" time="0.0000" classname="Radio buttons">
+      <failure message="Timed out retrying: Expected to find content: &apos;Forms Layout&apos; but never did." type="AssertionError"><![CDATA[AssertionError: Timed out retrying: Expected to find content: 'Forms Layout' but never did.
+    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress/integration/firstTest.spec.js:79:8)]]></failure>
+    </testcase>
+    <testcase name="Our first test suite Checkboxes" time="6.0770" classname="Checkboxes">
+    </testcase>
+    <testcase name="Our first test suite Lists and dropdowns" time="5.2670" classname="Lists and dropdowns">
+    </testcase>
+  </testsuite>
+</testsuites>

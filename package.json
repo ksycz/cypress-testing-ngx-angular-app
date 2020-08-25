@@ -4,14 +4,27 @@
   "description": "This repository contains tests for the following app https://github.com/Postavshik/ngx-cypress-test that was used during the https://www.udemy.com/course/cypress-web-automation-testing-from-zero-to-hero/ Udemy course.",
   "main": "index.js",
   "dependencies": {
-    "cypress-plugin-retries": "^1.5.2"
+    "@types/lodash": "^4.14.159",
+    "cypress-plugin-retries": "^1.5.2",
+    "lodash": "^4.17.19"
   },
   "devDependencies": {
-    "cypress": "^4.12.1"
+    "cypress": "^4.12.1",
+    "cypress-multi-reporters": "^1.4.0",
+    "junit-merge": "^2.0.0",
+    "mocha-junit-reporter": "^2.0.0",
+    "mochawesome": "^6.1.1",
+    "mochawesome-merge": "^4.1.0",
+    "mochawesome-report-generator": "^5.1.0"
   },
   "scripts": {
+    "delete:reports": "rm -r cypress/results/* || true",
+    "prereport": "npm run delete:reports",
+    "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
+    "junit:merge": "npx junit-merge cypress/results/junit --o cypress/results/junit/result.xml",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cypress:run": "CYPRESS_RETRIES=2 npm run cypress"
+    "cypress:run": "npm run prereport && npx cypress run",
+    "cypress:e2e": "npm run cypress:run; npm run junit:merge; npm run mochawesome:merge"
   },
   "repository": {
     "type": "git",

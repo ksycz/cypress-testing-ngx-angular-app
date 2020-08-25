@@ -136,7 +136,7 @@ describe('Our first test suite', () => {
         cy.get('[type="checkbox"]').check({force: true})
     })
 
-    it.only("Lists and dropdowns", () => {
+    it("Lists and dropdowns", () => {
         cy.visit("/")
         // here we cannot use the "select" method because our tag name for dropdown is "nb-select"
 
@@ -166,6 +166,34 @@ describe('Our first test suite', () => {
                     cy.wrap(dropdown).click()
                 }
                 
+            })
+        })
+    })
+
+    it.skip("Web tables", () => {
+        cy.visit("/")
+        cy.contains("Tables & Data").click()
+        cy.contains("Smart Table").click()
+
+        // 1
+        cy.get('tbody').contains('Larry').then( tableRow => {
+            cy.wrap(tableRow).find('.nb-edit').click()
+            cy.wrap(tableRow).find('[placeholder="Age"]').type('25')
+            cy.wrap(tableRow).find('.nb-checkmark').click()
+            cy.wrap(tableRow).find('td').eq(6).should('contain', 25)
+        })
+
+        // 2
+        const age = [20, 30, 40, 200];
+
+        cy.wrap(age).each(age => {
+            cy.get('[placeholder="age"]').type(age)
+            cy.get('tbody tr').each(tableRow => {
+                if(age == 200) {
+                    cy.wrap(tableRow).should('contain', 'No data found')
+                } else {
+                    cy.wrap(tableRow).find('td').eq(6).should('contain', age)
+                }
             })
         })
     })

@@ -1,0 +1,268 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 9,
+    "passes": 6,
+    "pending": 1,
+    "failures": 2,
+    "start": "2020-08-25T19:54:18.201Z",
+    "end": "2020-08-25T19:54:18.201Z",
+    "duration": 69653,
+    "testsRegistered": 9,
+    "passPercent": 66.66666666666667,
+    "pendingPercent": 11.11111111111111,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "a643b0ca-2cda-4a01-a1c7-21ba4b1669de",
+      "title": "",
+      "fullFile": "cypress/integration/firstTest.spec.js",
+      "file": "cypress/integration/firstTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "fede5caa-d666-4087-b765-8bf1acaa2529",
+          "title": "Our first test suite",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "First test",
+              "fullTitle": "Our first test suite First test",
+              "timedOut": null,
+              "duration": 39,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "fca90cbc-ad61-4a16-994b-6072028bff26",
+              "parentUUID": "fede5caa-d666-4087-b765-8bf1acaa2529",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Finding web elements",
+              "fullTitle": "Our first test suite Finding web elements",
+              "timedOut": null,
+              "duration": 8733,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// for to the forms section\ncy.visit(\"/\");\ncy.contains(\"Forms\");\ncy.contains(\"Forms Layouts\"); // element containing the specific text\ncy.contains(\"Horizontal form\"); // element containing data attributes\ncy.contains(\"[data-cy='testElement']\"); // element containing data attribute and the text - they do not have to be on the same level\ncy.contains(\"[status='warning']\", \"Sign in\"); // find button in the form that contains the email input with the specific id (button and email input are sibilings), then click checkbox in the same form\ncy.get(\"#inputEmail3\").parents(\"form\").find(\"button\").should(\"contain\", \"Sign in\").parents(\"form\").find(\"nb-checkbox\").click(); // find email input in the element that \"nb-card\" containing the \"Horizontal form\" text (they are not on the same level)\ncy.contains(\"nb-card\", \"Horizontal form\").find(\"[type='email']\");",
+              "err": {
+                "message": "AssertionError: Timed out retrying: Expected to find content: 'Forms Layouts' but never did.",
+                "estack": "AssertionError: Timed out retrying: Expected to find content: 'Forms Layouts' but never did.\n    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress/integration/firstTest.spec.js:11:8)",
+                "diff": null
+              },
+              "uuid": "5e4c3c8d-4ecf-4d01-98a6-9d5b9e7d25b0",
+              "parentUUID": "fede5caa-d666-4087-b765-8bf1acaa2529",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Then and wrap methods",
+              "fullTitle": "Our first test suite Then and wrap methods",
+              "timedOut": null,
+              "duration": 6284,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// for to the forms section\ncy.visit(\"/\");\ncy.contains(\"Forms\").click();\ncy.contains(\"Form Layouts\").click();\ncy.contains(\"nb-card\", \"Using the Grid\").find(\"[for='inputEmail1']\").should('contain', 'Email'); // cypress is asynchronous so we cannot assign the selector to the variables and directly use it, we need to use \"then\"\n//  inside we have jQuery context, not cypress\ncy.contains(\"nb-card\", \"Using the Grid\").then(function (firstForm) {\n  var passwordLabelFirst = firstForm.find(\"[for='inputPassword2']\").text();\n  expect(passwordLabelFirst).to.equal(\"Password\");\n  cy.contains(\"nb-card\", \"Basic form\").then(function (secondForm) {\n    var passwordLabelSecond = secondForm.find(\"[for='exampleInputPassword1']\").text();\n    expect(passwordLabelFirst).to.equal(passwordLabelSecond); // going back to the Cypress context\n    cy.wrap(secondForm).find(\"[for='exampleInputPassword1']\").should('contain', 'Password');\n  });\n});",
+              "err": {},
+              "uuid": "7510e31b-431b-484c-b241-01c0cc27ceb5",
+              "parentUUID": "fede5caa-d666-4087-b765-8bf1acaa2529",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Invoke command",
+              "fullTitle": "Our first test suite Invoke command",
+              "timedOut": null,
+              "duration": 20209,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// for to the forms section\ncy.visit(\"/\");\ncy.contains(\"Forms\").click();\ncy.contains(\"Form Layouts\").click(); // 3 ways on how to get to the text of the web element\n// 1\ncy.get('[for=\"exampleInputEmail1').should('contain', 'Email address'); // 2 - jQuery context inside 'then\ncy.get('[for=\"exampleInputEmail1').then(function (label) {\n  expect(label.text()).to.equal('Email address');\n}); // 3\ncy.get('[for=\"exampleInputEmail1').invoke('text').then(function (text) {\n  expect(text).to.equal('Email address');\n}); // using invoke to check if the checkbox has the \"checked\" class\ncy.contains(\"nb-card\", \"Basic form\").find('nb-checkbox').click().find('.custom-checkbox').invoke('attr', 'class').should('contain', 'checked'); // or\n// .then(classValue => {\n//     expect(classValue).to.contain('checked')\n// })",
+              "err": {},
+              "uuid": "95bb2487-fef4-456e-adf7-69e501fc1e8e",
+              "parentUUID": "fede5caa-d666-4087-b765-8bf1acaa2529",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Assert property",
+              "fullTitle": "Our first test suite Assert property",
+              "timedOut": null,
+              "duration": 13898,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(\"/\");\ncy.contains(\"Forms\").click();\ncy.contains(\"Datepicker\").click();\ncy.contains('nb-card', 'Common Datepicker').find('input').then(function (input) {\n  // to use cypress syntax in jQuery we need to use cy.wrap()\n  cy.wrap(input).click();\n  cy.get('nb-calendar-day-picker').contains('20').click();\n  cy.wrap(input).invoke('prop', 'value').should('contain', 'Aug 20, 2020');\n});",
+              "err": {},
+              "uuid": "6b2411a3-4303-49d3-a65f-090007eb66ab",
+              "parentUUID": "fede5caa-d666-4087-b765-8bf1acaa2529",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Radio buttons",
+              "fullTitle": "Our first test suite Radio buttons",
+              "timedOut": null,
+              "duration": 9146,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(\"/\");\ncy.contains(\"Forms\").click();\ncy.contains(\"Forms Layout\").click();\ncy.contains(\"nb-card\", \"Using the Grid\").find('[type=\"radio\"]').then(function (radioBtns) {\n  cy.wrap(radioBtns).first().check({\n    force: true\n  }).should('be.checked');\n  cy.wrap(radioBtns).eq(1) // index 1\n  .check({\n    force: true\n  });\n  cy.wrap(radioBtns).first().should('not.be.checked');\n  cy.wrap(radioBtns).eq(2) // index 2\n  .should('be.disabled');\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying: Expected to find content: 'Forms Layout' but never did.",
+                "estack": "AssertionError: Timed out retrying: Expected to find content: 'Forms Layout' but never did.\n    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress/integration/firstTest.spec.js:79:8)",
+                "diff": null
+              },
+              "uuid": "34892f15-199e-44aa-9833-cb0cd4ea6ad7",
+              "parentUUID": "fede5caa-d666-4087-b765-8bf1acaa2529",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Checkboxes",
+              "fullTitle": "Our first test suite Checkboxes",
+              "timedOut": null,
+              "duration": 6077,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(\"/\");\ncy.contains(\"Modal & Overlays\").click();\ncy.contains(\"Toastr\").click(); // \"check\" command will not uncheck the checked checkbox, you have to use click command for that\ncy.get('[type=\"checkbox\"]').check({\n  force: true\n});",
+              "err": {},
+              "uuid": "903926b2-e702-4b63-aa8c-97c78e1211e5",
+              "parentUUID": "fede5caa-d666-4087-b765-8bf1acaa2529",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Lists and dropdowns",
+              "fullTitle": "Our first test suite Lists and dropdowns",
+              "timedOut": null,
+              "duration": 5267,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(\"/\"); // here we cannot use the \"select\" method because our tag name for dropdown is \"nb-select\"\n// simple version\n// cy.get('nav nb-select').click()\n// cy.get('.options-list').contains('Dark').click()\n// cy.get('nav nb-select').should('contain', 'Dark')\n// cy.get('nb-layout-header nav').should('have.css', 'background-color', 'rgb(34, 43, 69)')\n// advanced version\ncy.get('nav nb-select').then(function (dropdown) {\n  cy.wrap(dropdown).click();\n  cy.get('.options-list nb-option').each(function (listItem, index) {\n    // we use trim to get rid of the trailing spaces\n    var itemText = listItem.text().trim();\n    var colors = {\n      'Light': 'rgb(255, 255, 255)',\n      'Dark': 'rgb(34, 43, 69)',\n      'Cosmic': 'rgb(50, 50, 89)',\n      'Corporate': 'rgb(255, 255, 255)'\n    };\n    cy.wrap(listItem).click();\n    cy.wrap(dropdown).should('contain', itemText);\n    cy.get('nb-layout-header nav').should('have.css', 'background-color', colors[itemText]);\n    if (index < 3) {\n      cy.wrap(dropdown).click();\n    }\n  });\n});",
+              "err": {},
+              "uuid": "a63a26c6-3a08-4109-9cb4-37d2601d1b95",
+              "parentUUID": "fede5caa-d666-4087-b765-8bf1acaa2529",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Web tables",
+              "fullTitle": "Our first test suite Web tables",
+              "timedOut": null,
+              "duration": 0,
+              "state": "pending",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": true,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "8e88bf2d-36a5-4127-a2ca-c2135f181714",
+              "parentUUID": "fede5caa-d666-4087-b765-8bf1acaa2529",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "fca90cbc-ad61-4a16-994b-6072028bff26",
+            "7510e31b-431b-484c-b241-01c0cc27ceb5",
+            "95bb2487-fef4-456e-adf7-69e501fc1e8e",
+            "6b2411a3-4303-49d3-a65f-090007eb66ab",
+            "903926b2-e702-4b63-aa8c-97c78e1211e5",
+            "a63a26c6-3a08-4109-9cb4-37d2601d1b95"
+          ],
+          "failures": [
+            "5e4c3c8d-4ecf-4d01-98a6-9d5b9e7d25b0",
+            "34892f15-199e-44aa-9833-cb0cd4ea6ad7"
+          ],
+          "pending": [
+            "8e88bf2d-36a5-4127-a2ca-c2135f181714"
+          ],
+          "skipped": [],
+          "duration": 69653,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.1.1"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.1.0"
+    }
+  }
+}
