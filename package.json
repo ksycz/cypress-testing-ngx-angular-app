@@ -6,7 +6,7 @@
   "dependencies": {
     "@types/lodash": "^4.14.159",
     "cypress-plugin-retries": "^1.5.2",
-    "lodash": "^4.17.19"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "cypress": "^4.12.1",
